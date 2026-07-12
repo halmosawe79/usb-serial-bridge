@@ -29,13 +29,21 @@ android {
 
 dependencies {
     // usb-serial-for-android (supports CDC/ACM, FTDI, CP210x, CH340/CH341, PL2303, etc.)
-    implementation('com.github.mik3y:usb-serial-for-android:3.7.3') {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
-    }
+    implementation 'com.github.mik3y:usb-serial-for-android:3.7.3'
+
+    // Force consistent Kotlin stdlib versions to avoid duplicate class conflicts
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.24'
 
     // AndroidX
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.core:core:1.13.1'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.jetbrains.kotlin:kotlin-stdlib:1.9.24'
+        force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.24'
+        force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24'
+    }
 }
